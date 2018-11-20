@@ -1,0 +1,33 @@
+{% extends "base_layout.html" %}
+
+{% block content %}
+<h1>Edit the Application</h1>
+<div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12" style="background-color:#e3e3e3;padding:12px;margin-top:12px">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input id="name" class="form-control" name="name" value="{{app.name}}" disabled/>
+    </div>
+    <div class="form-group">
+        <label for="website">Website:</label>
+        <input id="website" class="form-control" name="website" value="{{app.website}}" disabled/>
+    </div>
+    <div class="form-group">
+        <label for="additional_info">Additional Info:</label>
+        <input id="additional_info" class="form-control" name="additional_info" value="{{app.additional_info}}" disabled/>
+    </div>
+
+    <a class="btn btn-primary btn-sm col-md-4" href="{{app.website}}">Visit Website</a>
+    <a class="btn btn-default btn-sm col-md-4" href="{% url 'applications:edit_app' app.id %}">Edit Application</a>
+    <a class="btn btn-danger btn-sm col-md-4" onclick="promptDelete(this)" data-url="{% url 'applications:delete_app' app.id %}" href="">Delete Application</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function promptDelete(aTag){
+        if(confirm("Are you sure ?"))
+            window.location = aTag.getAttribute("data-url");
+        return false;
+    }
+</script>
+{% endblock %}
