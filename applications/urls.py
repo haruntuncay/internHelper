@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from . import fileops
 
 app_name = "applications"
 urlpatterns = [
@@ -16,4 +16,7 @@ urlpatterns = [
     path("edit_app/<int:app_id>", views.edit_app, name="edit_app"),
     path("update_app/<int:app_id>", views.update_app, name="update_app"),
     path("delete_app/<int:app_id>", views.delete_app, name="delete_app"),
+
+    path("search/", fileops.get_search, name="fops_get_search"),
+    path("post_search/", fileops.post_search, name="fops_post_search"),
 ]

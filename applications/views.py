@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import  login_required
 from django.contrib.auth.models import  User
 from django.contrib.auth import  authenticate, login, logout
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
 from .models import Application
 
 
@@ -13,9 +15,8 @@ def post_login(request):
     user = authenticate(request, username=request.POST["username"], password=request.POST["password"])
     if user is not None:
         login(request, user)
-    else:
-        raise Exception("User is None")
-    return redirect(reverse("applications:index"))
+        return redirect(reverse("applications:index"))
+    return HttpResponse("User not found")
 
 
 def logoutUser(request):
@@ -27,7 +28,7 @@ def get_register(request):
 
 
 def post_register(request):
-    user = User(username=request.POST["username"], email=request.POST["email"], password=request.POST["password"])
+    user = User.objects.create_user(username=request.POST["username"], email=request.POST["email"], password=request.POST["password"])
     user.save()
     authenticate(request, username=user.username, password=request.POST["password"])
     login(request, user)

@@ -10,9 +10,11 @@
                 <p class="app_name"><a target="_blank" href="{% url 'applications:show_app' app.id %}">{{app.name}}</a></p>
                 <p class="app_date">{{app.created_at}}</p>
                 <p>
-                    <a href="{{app.website}}">Visit Website</a>
-                    <a href="{% url 'applications:edit_app' app.id %}">Edit</a>
-                    <a onclick="promptDelete(this)" data-url="{% url 'applications:delete_app' app.id %}" href="">Delete</a>
+                    {% if app.website %}
+                        <a href="{{app.website}}">Visit</a>
+                    {% endif %}
+                    | <a href="{% url 'applications:edit_app' app.id %}">Edit</a>
+                    | <a onclick="promptDelete(event, this)" data-url="{% url 'applications:delete_app' app.id %}" href="">Delete</a>
                 </p>
             </div>
         </div>
@@ -22,7 +24,8 @@
 
 {% block scripts %}
 <script>
-    function promptDelete(aTag){
+    function promptDelete(e, aTag){
+        e.preventDefault();
         if(confirm("Are you sure ?"))
             window.location = aTag.getAttribute("data-url");
         return false;

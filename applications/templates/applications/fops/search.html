@@ -1,0 +1,24 @@
+{% extends "base_layout.html" %}
+
+{% block content %}
+<h1>Search</h1>
+<div class="col-md-12">
+    <form method="POST" action="{% url 'applications:fops_post_search' %}">
+        {% csrf_token %}
+        <input class="form_control" name="filename">
+    </form>
+</div>
+{% if res %}
+<div class="col-md-12">
+    {% for r in res %}
+        <p><a>{{r}}</a></p>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}
