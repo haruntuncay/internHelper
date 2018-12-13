@@ -12,5 +12,5 @@ def post_search(request):
     if not fname:
         return redirect(reverse("applications:fops_get_search"))
 
-    res = glob.glob("images/*" + fname + "*.jpg")
+    res = glob.glob("../../edsenv/images/*" + fname + "*.jpg")
     return render(request, "applications/search.html", {"res": res})
