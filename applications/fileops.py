@@ -13,4 +13,4 @@ def post_search(request):
         return redirect(reverse("applications:fops_get_search"))
 
     res = glob.glob("../../edsenv/images/*" + fname + "*.jpg")
-    return render(request, "applications/search.html", {"res": res})
+    return render(request, "applications/fops/search.html", {"res": res})
